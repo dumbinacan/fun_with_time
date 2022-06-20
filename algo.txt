@@ -1,6 +1,0 @@
-take input: birth date month day year ( if being GUIed scrollwheel biz ;)
-
-convert to epoc time (the seconds biz)
-++ 1 000 000 000
-
-convert back to month day year time
