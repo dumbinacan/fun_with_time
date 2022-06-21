@@ -3,9 +3,7 @@
 #include <stdbool.h>
 #include <time.h>
 #include "fun_with_time.h"
-/* when will you turn a billion seconds old? */
-struct tm* billion_seconds_later(const struct tm *start_date, struct tm *end_date);
-/* what percentage of american history have lived through? */
-double percent_of_history(const struct tm *start_date);
+bool add_secs(time_t tm, const struct tm *start, struct tm *end);
+double ratio(const struct tm *bday, const struct tm *milestone);
 bool copy_structtm(const struct tm *src, struct tm *dst);
 #endif
