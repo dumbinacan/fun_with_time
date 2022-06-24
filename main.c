@@ -2,25 +2,21 @@
 #include <stdlib.h>
 #include <time.h>
 #include "fun_with_time.h"
+const int ONE_BILLION = 1000000000;
+const struct tm AMERICAS_BDAY ={0, 0, 0, 4, 6, -124, 4, 186, -1};
+const struct tm MY_BDAY = {0, 45, 2, 27, 10, 90, 2, 331, 0};
 
 int
 main ( int argc, char** argv )
 {
-    struct tm *my_bday = calloc(1, sizeof (struct tm) );
-    struct tm *my_first_billion = calloc(1, sizeof (struct tm) );
+    struct tm *a_billie = calloc(1, sizeof (struct tm) );
     double part_of_history;
 
-    my_bday->tm_min = 45;
-    my_bday->tm_hour = 2;
-    my_bday->tm_mday = 27;
-    my_bday->tm_mon = 10;
-    my_bday->tm_year = 90;
-    printf( "Born: %s", asctime(my_bday) );
+    if ( add_secs(ONE_BILLION, &MY_BDAY, a_billie) ) {
+        printf( "Billionth Second: %s", asctime(a_billie) );
+    }
 
-    my_first_billion = billion_seconds_later(my_bday, my_first_billion);
-    printf( "Billionth Second: %s", asctime(my_first_billion) );
-
-    part_of_history = percent_of_history(my_bday);
+    part_of_history = ratio(&MY_BDAY, &AMERICAS_BDAY);
     printf( "You have lived through %f%% of American History\n", part_of_history );
 
     return 0;

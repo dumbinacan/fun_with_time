@@ -4,20 +4,21 @@
 #include <inttypes.h>
 #include "fun_with_time.h"
 
-const int ONE_BILLION = 1000000000;
+// const int ONE_BILLION = 1000000000;
+// const struct tm americas_bday = {0, 0, 0, 4, 6, -124, 4, 186, -1};
 
-struct tm*
-billion_seconds_later(const struct tm *start_date, struct tm* end_date)
+bool
+add_secs(time_t tm, const struct tm *start, struct tm* end)
 {
     struct tm *cpy = calloc(1, sizeof (struct tm) );
     time_t time;
 
-    copy_structtm(start_date, cpy);
+    if ( !copy_structtm(start, cpy) ) { return false; }
     time = mktime(cpy);
-    time += ONE_BILLION;
+    time += tm;
 
-    end_date = localtime(&time);
-    return end_date;
+    if ( !copy_structtm(localtime(&time), end) ) { return false; }
+    return true;
 }
 
 /* 
@@ -29,21 +30,20 @@ billion_seconds_later(const struct tm *start_date, struct tm* end_date)
  **
  */
 double
-percent_of_history(const struct tm *start_date)
+ratio(const struct tm *bday, const struct tm *milestone)
 {
-    int64_t americas_age;
+    int64_t milestone_age; // avoid overflow
     time_t your_age;
     time_t today = time(NULL);
-                      /* July 4th, 1776 */
-    struct tm americas_bday = {0, 0, 0, 4, 6, -124, 4, 186, -1};
-    struct tm *cpy = calloc(1, sizeof (struct tm) );
+    struct tm *bd_cpy = calloc(1, sizeof (struct tm) );
+    struct tm *ms_cpy = calloc(1, sizeof (struct tm) );
 
-    if ( !copy_structtm(start_date, cpy) ) { return 0.0; }
-    your_age = today - mktime(cpy);
-    americas_age = (int64_t)  mktime(&americas_bday) * -1
-                            + today;
+    if ( !copy_structtm(bday, bd_cpy) ) { return 0.0; }
+    if ( !copy_structtm(milestone, ms_cpy) ) { return 0.0; }
+    your_age = today - mktime(bd_cpy);
+    milestone_age = (int64_t)  mktime(ms_cpy) * -1 + today;
 
-    return (double) 100 * your_age / americas_age;
+    return (double) 100 * your_age / milestone_age;
 }
 
 bool /* could I avoid this function by passing by value? */
