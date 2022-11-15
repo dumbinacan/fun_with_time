@@ -6,4 +6,5 @@
 bool add_secs(time_t tm, const struct tm *start, struct tm *end);
 double ratio(const struct tm *bday, const struct tm *milestone);
 bool copy_structtm(const struct tm *src, struct tm *dst);
+time_t get_secs(const struct tm *start, struct tm *end);
 #endif
