@@ -4,6 +4,8 @@
 #include "fun_with_time.h"
 const int ONE_BILLION = 1000000000;
 const int ONE_MILLION = 1000000;
+// const struct tm TIME_DATE =
+// {sec,min,hour,day of month,month,year,day of week, day of the year, daylight savings}
 const struct tm AMERICAS_BDAY ={0, 0, 0, 4, 6, -124, 4, 186, -1};
 const struct tm MY_BDAY = {0, 45, 2, 27, 10, 90, 2, 331, 0};
 const struct tm NITA_BDAY = {0, 35, 18, 27, 6, 91, 5, 0, 0};
